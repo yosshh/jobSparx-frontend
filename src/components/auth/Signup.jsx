@@ -64,7 +64,7 @@ const submitHandler = async (e) => {
           <h1 className="font-bold text-xl mb-5">Sign Up</h1>
           <div className="my-2">
             <Label>Full Name</Label>
-            <Input type="text" name="fullname" placeholder="name" value={input.fullName} onChange={changeEventHandler} />
+            <Input type="text" name="fullName" placeholder="name" value={input.fullName} onChange={changeEventHandler} />
           </div>
           <div className="my-2">
             <Label>Email</Label>
@@ -84,8 +84,8 @@ const submitHandler = async (e) => {
                 <Input
                   type="radio"
                   name="role"
-                  value="student"
-                  checked={input.role === 'student'}
+                  value="Student"
+                  checked={input.role === 'Student'}
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
@@ -95,8 +95,8 @@ const submitHandler = async (e) => {
                 <Input
                   type="radio"
                   name="role"
-                  value="recruiter"
-                  checked={input.role === 'recruiter'}
+                  value="Recruiter"
+                  checked={input.role === 'Recruiter'}
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
@@ -105,7 +105,7 @@ const submitHandler = async (e) => {
             </RadioGroup>
             <div className="flex items-center gap-2">
               <Label>Profile</Label>
-              <Input accept="image/*" type="file" className="cursor-pointer" onChange={changeFileHandler} />
+              <Input accept="image/*" name="profileImage" type="file" className="cursor-pointer" onChange={changeFileHandler} />
             </div>
           </div>
           <Button type="submit" className="w-full my-4">Signup</Button>
