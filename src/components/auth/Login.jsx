@@ -7,52 +7,78 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/constants";
-import { toast } from 'sonner'
+import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading, setUser } from "@/redux/authSlice";
+import { Loader2 } from "lucide-react";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.auth);
+
   const [input, setInput] = useState({
     email: "",
     password: "",
     role: "",
-});
+  });
 
-const changeEventHandler = (e) => {
-  setInput({ ...input, [e.target.name]: e.target.value });
-}
-const submitHandler = async (e) => {
-  e.preventDefault();
+  const changeEventHandler = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
 
-  try {
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log(input);
+
+    try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
-          headers: { 'Content-Type': "application/json" },
-          withCredentials: true,
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
       });
+      console.log(res);
       if (res.data.success) {
-          navigate("/");
-          toast.success(res.data.message);
+        dispatch(setUser(res.data.user));
+        navigate("/");
+        toast.success(res.data.message);
       }
-  } catch (error) {
+    } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message);
-  }
-}
+      toast.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+
   return (
     <div>
       <Navbar />
       <div className="flex items-center justify-center max-w-7xl mx-auto">
         <form
-          action={submitHandler}
+          onSubmit={submitHandler}
           className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
         >
           <h1 className="font-bold text-xl mb-5">Login</h1>
           <div className="my-2">
             <Label>Email</Label>
-            <Input type="text" name="email" placeholder="email" value={input.email} onChange={changeEventHandler} />
+            <Input
+              type="text"
+              name="email"
+              placeholder="email"
+              value={input.email}
+              onChange={changeEventHandler}
+            />
           </div>
           <div className="my-2">
             <Label>Password</Label>
-            <Input type="text" name="password" placeholder="password" value={input.password} onChange={changeEventHandler} />
+            <Input
+              type="password"
+              name="password"
+              placeholder="password"
+              value={input.password}
+              onChange={changeEventHandler}
+            />
           </div>
           <div className="flex items-center justify-between">
             <RadioGroup className="flex items-center gap-4 my-5">
@@ -60,8 +86,8 @@ const submitHandler = async (e) => {
                 <Input
                   type="radio"
                   name="role"
-                  value="student"
-                  checked={input.role === 'student'}
+                  value="Student"
+                  checked={input.role === "Student"}
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
@@ -71,8 +97,8 @@ const submitHandler = async (e) => {
                 <Input
                   type="radio"
                   name="role"
-                  value="recruiter"
-                  checked={input.role === 'recruiter'}
+                  value="Recruiter"
+                  checked={input.role === "Recruiter"}
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
@@ -80,8 +106,22 @@ const submitHandler = async (e) => {
               </div>
             </RadioGroup>
           </div>
-          <Button type="submit" className="w-full my-4">Login</Button>
-          <span className='text-sm'>Dont have an account ? <Link to="/register" className='text-blue-600'>Signup</Link></span>
+          {loading ? (
+            <Button className="w-full my-4">
+              {" "}
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait{" "}
+            </Button>
+          ) : (
+            <Button type="submit" className="w-full my-4">
+              Login
+            </Button>
+          )}
+          <span className="text-sm">
+            Dont have an account?{" "}
+            <Link to="/register" className="text-blue-600">
+              Signup
+            </Link>
+          </span>
         </form>
       </div>
     </div>
