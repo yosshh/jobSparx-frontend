@@ -8,8 +8,11 @@ const authSlice = createSlice({
     },
     reducers:{
         // actions
+        
+        
         setLoading:(state, action) => {
             state.loading = action.payload;
+            console.log("inside reducers");
         },
         setUser:(state, action) => {
             state.user = action.payload;

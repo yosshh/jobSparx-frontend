@@ -39,6 +39,7 @@ const Login = () => {
       });
       console.log(res);
       if (res.data.success) {
+        console.log("User Data:", res.data.user);
         dispatch(setUser(res.data.user));
         navigate("/");
         toast.success(res.data.message);
