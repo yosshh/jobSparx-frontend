@@ -12,6 +12,8 @@ import { toast } from "sonner";
 const Navbar = () => {
   // const user = true;
   const { user } = useSelector(store => store.auth);
+  console.log("user from redux", user);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -52,7 +54,7 @@ const Navbar = () => {
               <PopoverTrigger asChild>
                 <Avatar className="cursor-pointer">
                   <AvatarImage
-                    src="https://github.com/shadcn.png"
+                    src={user?.profile?.profilePhoto}
                     alt="@shadcn"
                   />
                 </Avatar>
@@ -62,14 +64,14 @@ const Navbar = () => {
                   <div className="flex gap-2 space-y-2">
                     <Avatar className="cursor-pointer">
                       <AvatarImage
-                        src="https://github.com/shadcn.png"
+                        src={user?.profile?.profilePhoto}
                         alt="@shadcn"
                       />
                     </Avatar>
                     <div>
-                      <h4 className="font-medium">Harsh Shukla</h4>
+                      <h4 className="font-medium">{user?.fullName || "User"}</h4>
                       <p className="text-sm text-muted-foreground">
-                        yash shukla is a great person
+                        {user?.profile?.bio}
                       </p>
                     </div>
                   </div>

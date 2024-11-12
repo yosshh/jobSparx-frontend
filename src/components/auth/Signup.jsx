@@ -31,6 +31,7 @@ const Signup = () => {
   };
   const changeFileHandler = (e) => {
     setInput({ ...input, file: e.target.files?.[0] });
+    console.log("Selected file:", e.target.files?.[0]);
   };
 
   const submitHandler = async (e) => {
@@ -43,8 +44,13 @@ const Signup = () => {
     formData.append("role", input.role);
     if (input.file) {
       formData.append("file", input.file);
+      console.log("Appended file:", input.file);
     }
 
+    formData.forEach((value, key) => {
+      console.log(key + ": " + value);
+    });
+  
     try {
       dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
@@ -140,7 +146,7 @@ const Signup = () => {
               <Label>Profile</Label>
               <Input
                 accept="image/*"
-                name="profileImage"
+                name="file"
                 type="file"
                 className="cursor-pointer"
                 onChange={changeFileHandler}

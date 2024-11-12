@@ -12,9 +12,10 @@ const authSlice = createSlice({
         
         setLoading:(state, action) => {
             state.loading = action.payload;
-            console.log("inside reducers");
+            // console.log("inside reducers");
         },
         setUser:(state, action) => {
+            console.log("Payload received in setUser:", action.payload);
             state.user = action.payload;
         }
     }
