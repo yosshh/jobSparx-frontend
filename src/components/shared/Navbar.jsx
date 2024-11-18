@@ -12,7 +12,7 @@ import { toast } from "sonner";
 const Navbar = () => {
   // const user = true;
   const { user } = useSelector(store => store.auth);
-  console.log("user from redux", user);
+  // console.log("user from redux", user);
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,6 +20,8 @@ const Navbar = () => {
   const logoutHandler = async () => {
     try {
         const res = await axios.get(`${USER_API_END_POINT}/logout`, { withCredentials: true });
+        console.log("logout successfull", res.data);
+        
         if (res.data.success) {
             dispatch(setUser(null));
             navigate("/");

@@ -15,7 +15,7 @@ const authSlice = createSlice({
             // console.log("inside reducers");
         },
         setUser:(state, action) => {
-            console.log("Payload received in setUser:", action.payload);
+            // console.log("Payload received in setUser:", action.payload);
             state.user = action.payload;
         }
     }
