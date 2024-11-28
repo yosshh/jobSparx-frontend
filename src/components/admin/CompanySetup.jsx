@@ -41,14 +41,14 @@ const CompanySetup = () => {
         }
     };
 
-    useEffect(() => {
-        if (!companyId) {
-            toast.error("No company ID provided");
-            navigate("/admin/companies"); 
-        } else {
-            console.log("Company ID:", companyId);
-        }
-    }, [companyId, navigate]);
+    // useEffect(() => {
+    //     if (!companyId) {
+    //         toast.error("No company ID provided");
+    //         navigate("/admin/companies"); 
+    //     } else {
+    //         console.log("Company ID:", companyId);
+    //     }
+    // }, [companyId, navigate]);
  
     const submitHandler = async (e) => {
         e.preventDefault();
