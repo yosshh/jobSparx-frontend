@@ -9,13 +9,14 @@ import axios from 'axios';
 import { COMPANY_API_END_POINT } from '@/constants';
 import { toast } from 'sonner';
 import { useSelector } from 'react-redux';
-// import useGetCompanyById from '@/components/hooks/useGetCompanyById';
+import useGetCompanyById from '@/components/hooks/useGetCompanyById';
 
 
 const CompanySetup = () => {
-    const {id: companyId} = useParams();
+    // const {id: companyId} = useParams();
     // console.log("params", companyId);
-    // useGetCompanyById(params.id);
+    const params = useParams()
+    useGetCompanyById();
     
     const [input, setInput] = useState({
         companyName: "",
@@ -25,6 +26,8 @@ const CompanySetup = () => {
         file: null,
     });
     const { singleCompany } = useSelector(store => store.company);
+    // console.log("single company", singleCompany);
+    
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -62,7 +65,7 @@ const CompanySetup = () => {
         }
         try {
             setLoading(true);
-            const res = await axios.put(`${COMPANY_API_END_POINT}/update/${companyId}`, formData, {
+            const res = await axios.put(`${COMPANY_API_END_POINT}/update/${params.id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -83,6 +86,8 @@ const CompanySetup = () => {
 
     useEffect(() => {
         if (singleCompany) {
+            // console.log("single company", singleCompany);
+            
             setInput({
                 companyName: singleCompany.companyName || "",
                 description: singleCompany.description || "",
@@ -92,6 +97,10 @@ const CompanySetup = () => {
             });
         }
     }, [singleCompany]);
+    // if(!singleCompany) {
+    //     console.log("no single company");
+        
+    // }
 
     return (
         <div>

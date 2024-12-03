@@ -11,15 +11,32 @@ import {
   TableRow,
 } from "../ui/table";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CompaniesTable = () => {
 //   const state = useSelector((store) => store);
 // console.log("Redux State:", state);
+const navigate = useNavigate();
 
-  const { companies } = useSelector(store => store.company);
+const { companies, searchCompanyByText } = useSelector(store => store.company);
   // console.log("companies from redux", companies);
+  const [filterCompany, setFilterCompany] = useState(companies);
   
+  useEffect(()=>{
+    // console.log("companies length", companies.length);
+    
+    const filteredCompany = companies.length >= 0 && companies.filter((company)=>{
+        if(!searchCompanyByText){
+            return true
+        };
+        console.log("company name", company.companyName);
+        
+        return company?.companyName?.toLowerCase().includes(searchCompanyByText.toLowerCase());
 
+    });
+    setFilterCompany(filteredCompany);
+},[companies,searchCompanyByText])
   return (
     
     
@@ -35,7 +52,7 @@ const CompaniesTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {companies?.map((company) => (
+          {filterCompany?.map((company) => (
             <TableRow key={company._id}>
               <TableCell>
                 <Avatar>
@@ -53,7 +70,7 @@ const CompaniesTable = () => {
                     <MoreHorizontal />
                   </PopoverTrigger>
                   <PopoverContent className="w-32 mt-2">
-                    <div className="flex items-center gap-2 w-fit cursor-pointer">
+                    <div onClick={()=> navigate(`/admin/companies/${company._id}`)} className="flex items-center gap-2 w-fit cursor-pointer">
                       <Edit2 className="w-4" />
                       <span>Edit</span>
                     </div>

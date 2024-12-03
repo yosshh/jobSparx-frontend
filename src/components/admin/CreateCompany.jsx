@@ -25,7 +25,7 @@ const CreateCompany = () => {
                 withCredentials:true
             });
             if(res?.data?.success){
-                dispatch(setSingleCompany(res.data.company));
+                dispatch(setSingleCompany(res.data.data));  
                 toast.success(res.data.message);
                 const companyId = res?.data?.data?._id;
                 // console.log("API Response:", res?.data);
