@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { RadioGroup } from "../ui/radio-group";
 import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/constants";
 import { toast } from "sonner";
@@ -14,7 +14,7 @@ import { setLoading } from "@/redux/authSlice";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const { loading } = useSelector((store) => store.auth);
+  const { loading, user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
 
   const [input, setInput] = useState({
@@ -68,6 +68,12 @@ const Signup = () => {
       dispatch(setLoading(false));
     }
   };
+
+   useEffect(()=> {
+      if(user){
+        navigate('/')
+      }
+    }, [])
   return (
     <div>
       <Navbar />

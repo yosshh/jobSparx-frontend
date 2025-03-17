@@ -55,7 +55,7 @@ const JobDescription = () => {
         });
         if (res.data.success) {
           dispatch(setSingleJob(res.data.data));
-          setIsApplied(res.data.job.applications.some(application=>application.applicant === user?._id))
+          setIsApplied(res.data.data.applications.some(application=>application.applicant === user?._id))
         //   console.log("job fetched", res.data.data);
         }
       } catch (error) {

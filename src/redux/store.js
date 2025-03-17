@@ -12,14 +12,14 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // Default storage for web
+import storage from 'redux-persist/lib/storage'; 
 import { combineReducers } from "redux";
 
-// Define the persistConfig
+
 const persistConfig = {
-  key: 'root', // Key for local storage
-  storage,     // Storage type (localStorage for web)
-  whitelist: ['auth', 'job'], // Persist both auth and job slices
+  key: 'root', 
+  storage,     
+  whitelist: ['auth', 'job'], 
 };
 
 const rootReducer = combineReducers({

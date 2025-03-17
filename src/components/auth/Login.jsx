@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { RadioGroup } from "../ui/radio-group";
 import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/constants";
 import { toast } from "sonner";
@@ -15,7 +15,7 @@ import { Loader2 } from "lucide-react";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((store) => store.auth);
+  const { loading, user } = useSelector((store) => store.auth);
 
   const [input, setInput] = useState({
     email: "",
@@ -51,6 +51,11 @@ const Login = () => {
       dispatch(setLoading(false));
     }
   };
+  useEffect(()=> {
+    if(user){
+      navigate('/')
+    }
+  }, [])
 
   return (
     <div>
