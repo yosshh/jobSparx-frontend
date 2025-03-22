@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { io } from "socket.io-client";
 
-
+// ✅ Change WebSocket URL to Render backend
 const socket = io("https://jobsparx-backend.onrender.com", { 
     withCredentials: true, 
-    transports: ["websocket"], 
+    transports: ["websocket", "polling"], // ✅ Ensures WebSocket compatibility
 });
 
 const useWebSocket = (userId, onNewJob) => {
