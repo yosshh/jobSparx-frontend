@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { io } from "socket.io-client";
 
-// ✅ Change WebSocket URL to Render backend
-const socket = io("https://jobsparx-backend.onrender.com", { 
-    withCredentials: true, 
-    transports: ["websocket", "polling"], // ✅ Ensures WebSocket compatibility
+// ✅ Use Backend URL with Authentication Token
+const socket = io("https://jobsparx-backend.onrender.com", {
+    auth: { token: localStorage.getItem("authToken") }, // ✅ Send token for authentication
+    withCredentials: true,
+    transports: ["websocket", "polling"],
 });
 
 const useWebSocket = (userId, onNewJob) => {
