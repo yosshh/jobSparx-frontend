@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:8000");
+const socket = io("https://jobsparx-backend.onrender.com");
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
