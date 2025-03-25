@@ -19,7 +19,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="relative bg-[#D91656] text-center text-white overflow-hidden">
+    <div className="relative bg-[#D91656] text-center text-white overflow-hidden mt-20">
       {/* Add TextCursor as full-screen overlay */}
       <TextCursor
         text="Dream Job"
