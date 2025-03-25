@@ -9,7 +9,7 @@ import { USER_API_END_POINT } from "@/constants";
 import { setUser } from "@/redux/authSlice";
 import { toast } from "sonner";
 import { useState } from "react";
-import { useWebSocket } from "../../context/WebSocketContext.jsx";
+import { useWebSocket } from "../../context/WebSocketContext"
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
