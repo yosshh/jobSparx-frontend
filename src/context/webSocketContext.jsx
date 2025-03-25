@@ -8,7 +8,7 @@ export const WebSocketProvider = ({ children }) => {
     const [jobNotifications, setJobNotifications] = useState([]);
 
     useEffect(() => {
-        const newSocket = io("http://localhost:8000", {  
+        const newSocket = io(import.meta.env.VITE_BACKEND_URL, {  
             withCredentials: true,
             transports: ["websocket", "polling"]  
         });
